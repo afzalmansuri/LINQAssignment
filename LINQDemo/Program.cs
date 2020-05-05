@@ -265,13 +265,14 @@ namespace LINQDemo
             Console.WriteLine(" ");
 
             var empquery22 = from employee in dbcontext.Employee
-                             where employee.FirstName.StartsWith('J')
+                             where employee.FirstName.StartsWith("j")
                              select employee;
 
             foreach (var emp in empquery22)
             {
                 Console.WriteLine(emp.EmployeeId + "-" + emp.FirstName + "-" + emp.LastName + "-" + emp.Salary + "-" + emp.JoiningDate + "-" + emp.Department);
             }
+
 
             Console.WriteLine(" ************************************** ");
 
@@ -280,7 +281,7 @@ namespace LINQDemo
             Console.WriteLine(" ");
 
             var empquery23 = from employee in dbcontext.Employee
-                             where employee.FirstName.Contains('o')
+                             where employee.FirstName.Contains("o")
                              select employee;
 
             foreach (var emp in empquery23)
@@ -295,7 +296,7 @@ namespace LINQDemo
             Console.WriteLine(" ");
 
             var empquery24 = from employee in dbcontext.Employee
-                             where employee.FirstName.EndsWith('n')
+                             where employee.FirstName.EndsWith("n")
                              select employee;
 
             foreach (var emp in empquery24)
@@ -311,7 +312,7 @@ namespace LINQDemo
             Console.WriteLine(" ");
 
             var empquery25 = from employee in dbcontext.Employee
-                             where employee.FirstName.EndsWith('n') && employee.FirstName.Length==4
+                             where employee.FirstName.EndsWith("n") && employee.FirstName.Length==4
                              select employee;
 
             foreach (var emp in empquery25)
@@ -326,7 +327,7 @@ namespace LINQDemo
             Console.WriteLine(" ");
 
             var empquery26 = from employee in dbcontext.Employee
-                             where employee.FirstName.StartsWith('J') && employee.FirstName.Length == 4
+                             where employee.FirstName.StartsWith("J") && employee.FirstName.Length == 4
                              select employee;
 
             foreach (var emp in empquery26)
@@ -350,6 +351,149 @@ namespace LINQDemo
                 Console.WriteLine(emp.EmployeeId + "-" + emp.FirstName + "-" + emp.LastName + "-" + emp.Salary + "-" + emp.JoiningDate + "-" + emp.Department);
             }
 
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 28");
+
+            Console.WriteLine(" ");
+
+            var empquery28 = from employee in dbcontext.Employee
+                             where employee.Salary < 800000
+                             select employee;
+
+            foreach (var emp in empquery28)
+            {
+                Console.WriteLine(emp.EmployeeId + "-" + emp.FirstName + "-" + emp.LastName + "-" + emp.Salary + "-" + emp.JoiningDate + "-" + emp.Department);
+            }
+
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 29");
+
+            Console.WriteLine(" ");
+
+            var empquery29 = from employee in dbcontext.Employee
+                             where employee.Salary > 500000 && employee.Salary<800000
+                             select employee;
+
+            foreach (var emp in empquery29)
+            {
+                Console.WriteLine(emp.EmployeeId + "-" + emp.FirstName + "-" + emp.LastName + "-" + emp.Salary + "-" + emp.JoiningDate + "-" + emp.Department);
+            }
+
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 30");
+
+            Console.WriteLine(" ");
+
+            var empquery30 = from employee in dbcontext.Employee
+                             where employee.FirstName == "John" || employee.FirstName == "Michael"
+                             select employee;
+
+            foreach (var emp in empquery30)
+            {
+                Console.WriteLine(emp.EmployeeId + "-" + emp.FirstName + "-" + emp.LastName + "-" + emp.Salary + "-" + emp.JoiningDate + "-" + emp.Department);
+            }
+
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 31");
+
+            Console.WriteLine(" ");
+
+            var empquery31 = from employee in dbcontext.Employee
+                             where employee.JoiningDate.Year==2013
+                             select employee;
+
+            foreach (var emp in empquery31)
+            {
+                Console.WriteLine(emp.EmployeeId + "-" + emp.FirstName + "-" + emp.LastName + "-" + emp.Salary + "-" + emp.JoiningDate + "-" + emp.Department);
+            }
+
+
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 32");
+
+            Console.WriteLine(" ");
+
+            var empquery32 = from employee in dbcontext.Employee
+                             where employee.JoiningDate.Month == 1
+                             select employee;
+
+            foreach (var emp in empquery32)
+            {
+                Console.WriteLine(emp.EmployeeId + "-" + emp.FirstName + "-" + emp.LastName + "-" + emp.Salary + "-" + emp.JoiningDate + "-" + emp.Department);
+            }
+
+
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 39");
+
+            Console.WriteLine(" ");
+
+            var empquery39 = from employee in dbcontext.Employee
+                             where employee.LastName.Contains("%")
+                             select employee;
+
+            foreach (var emp in empquery39)
+            {
+                Console.WriteLine(emp.EmployeeId + "-" + emp.FirstName + "-" + emp.LastName + "-" + emp.Salary + "-" + emp.JoiningDate + "-" + emp.Department);
+            }
+
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 40");
+
+            Console.WriteLine(" ");
+
+            var empquery40 = from employee in dbcontext.Employee
+                             where employee.LastName.Contains("%")
+                             select employee.LastName.Replace("%"," ");
+
+            foreach (var emp in empquery40)
+            {
+                Console.WriteLine(emp);
+            }
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 41");
+
+            Console.WriteLine(" ");
+
+
+            var empquery41 = from employee in dbcontext.Employee
+                               group employee by employee.Department into departGroup
+                               select new
+
+                               {
+
+                                   Department = departGroup.Key,
+
+                                   Salary = departGroup.Sum(i => i.Salary)
+
+                               };
+
+
+            foreach (var emp in empquery41)
+            {
+                Console.WriteLine(emp);
+
+            }
+
+          
+
+         
 
         }
     }
