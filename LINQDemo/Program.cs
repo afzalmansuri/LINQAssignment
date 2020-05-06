@@ -133,6 +133,37 @@ namespace LINQDemo
                 Console.WriteLine(emp.FirstName.IndexOf('o'));
             }
 
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 10");
+
+            Console.WriteLine(" ");
+
+            var empquery10 = from employee in dbcontext.Employee
+                             select employee.FirstName.TrimStart();
+
+
+            foreach (var emp in empquery10)
+            {
+                Console.WriteLine(emp);
+            }
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 11");
+
+            Console.WriteLine(" ");
+
+            var empquery11 = from employee in dbcontext.Employee
+                             select employee.FirstName.TrimEnd();
+
+
+            foreach (var emp in empquery11)
+            {
+                Console.WriteLine(emp);
+            }
+
             Console.WriteLine(" ************************************** ");
 
             Console.WriteLine("Query 12");
@@ -491,9 +522,273 @@ namespace LINQDemo
 
             }
 
-          
+            Console.WriteLine(" ************************************** ");
 
-         
+            Console.WriteLine("Query 42");
+
+            Console.WriteLine(" ");
+
+
+            var empquery42 = from employee in dbcontext.Employee
+                             group employee by employee.Department into departGroup
+                             orderby departGroup.Sum(i=>i.Salary) descending
+                             select new
+
+                             {
+
+                                 Department = departGroup.Key,
+
+                                 Salary = departGroup.Sum(i => i.Salary)
+
+                             };
+
+
+            foreach (var emp in empquery42)
+            {
+                Console.WriteLine(emp);
+
+            }
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 43");
+
+            Console.WriteLine(" ");
+
+
+            var empquery43 = from employee in dbcontext.Employee
+                             group employee by employee.Department into departGroup
+                             orderby departGroup.Sum(i => i.Salary) descending
+                             select new
+
+                             {
+
+                                 Department = departGroup.Key,
+                                 TotalEmployees = departGroup.Count(),
+                                 Salary = departGroup.Sum(i => i.Salary)
+
+                             };
+
+
+            foreach (var emp in empquery43)
+            {
+                Console.WriteLine(emp);
+
+            }
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 44");
+
+            Console.WriteLine(" ");
+
+
+            var empquery44 = from employee in dbcontext.Employee
+                             group employee by employee.Department into departGroup
+                             orderby departGroup.Sum(i => i.Salary) ascending
+                             select new
+
+                             {
+
+                                 Department = departGroup.Key,
+                                 Salary = departGroup.Average(i => i.Salary)
+
+                             };
+
+
+            foreach (var emp in empquery44)
+            {
+                Console.WriteLine(emp);
+
+            }
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 45");
+
+            Console.WriteLine(" ");
+
+
+            var empquery45 = from employee in dbcontext.Employee
+                             group employee by employee.Department into departGroup
+                             orderby departGroup.Sum(i => i.Salary) ascending
+                             select new
+
+                             {
+
+                                 Department = departGroup.Key,
+                                 Salary = departGroup.Max(i => i.Salary)
+
+                             };
+
+
+            foreach (var emp in empquery45)
+            {
+                Console.WriteLine(emp);
+
+            }
+
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 46");
+
+            Console.WriteLine(" ");
+
+
+            var empquery46 = from employee in dbcontext.Employee
+                             group employee by employee.Department into departGroup
+                             orderby departGroup.Sum(i => i.Salary) ascending
+                             select new
+
+                             {
+
+                                 Department = departGroup.Key,
+                                 Salary = departGroup.Min(i => i.Salary)
+                             };
+
+
+            foreach (var emp in empquery46)
+            {
+                Console.WriteLine(emp);
+
+            }
+
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 47");
+
+            Console.WriteLine(" ");
+
+
+            var empquery47 = (from employee in dbcontext.Employee
+                              where employee.JoiningDate.Year == 2019 && employee.JoiningDate.Month == 2
+                              select employee.EmployeeId).Count();
+
+            Console.WriteLine(empquery47);
+
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 48");
+
+            Console.WriteLine(" ");
+
+
+            var empquery48 = from employee in dbcontext.Employee
+                             group employee by employee.Department into departGroup
+                             where departGroup.Sum(i => i.Salary) > 800000
+                           orderby departGroup.Sum(i => i.Salary) >800000 descending
+                             select new
+
+                             {
+
+                                 Department = departGroup.Key,
+                                 Salary = departGroup.Sum(i => i.Salary)
+                             };
+
+
+            foreach (var emp in empquery48)
+            {
+                Console.WriteLine(emp);
+
+            }
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 49");
+
+            Console.WriteLine(" ");
+
+
+            var empquery49 = from employee in dbcontext.Employee
+                             join incentive in dbcontext.Incentives on employee.EmployeeId equals incentive.EmpRefId
+                             where incentive.IncentiveAmount != 0
+
+                             select new
+
+                             {
+
+                                 Employee = employee.FirstName,
+                                 IncentiveAmount = incentive.IncentiveAmount
+
+                             };
+
+
+            foreach (var emp in empquery49)
+            {
+                Console.WriteLine(emp);
+
+            }
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 50");
+
+            Console.WriteLine(" ");
+
+
+            var empquery50 = from employee in dbcontext.Employee
+                             join incentive in dbcontext.Incentives on employee.EmployeeId equals incentive.EmpRefId
+                             where incentive.IncentiveAmount != 0 && incentive.IncentiveAmount>3000
+
+                             select new
+
+                             {
+
+                                 Employee = employee.FirstName,
+                                 IncentiveAmount = incentive.IncentiveAmount
+
+                             };
+
+
+            foreach (var emp in empquery50)
+            {
+                Console.WriteLine(emp);
+
+            }
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 54");
+
+            Console.WriteLine(" ");
+
+
+            var empquery54 = (from employee in dbcontext.Employee
+                              select employee.Salary).Take(2);
+
+
+
+            foreach (var emp in empquery54)
+            {
+                Console.WriteLine(emp);
+
+            }
+
+
+            Console.WriteLine(" ************************************** ");
+
+            Console.WriteLine("Query 56");
+
+            Console.WriteLine(" ");
+
+
+            var empquery56 = (from employee in dbcontext.Employee
+                              orderby employee.Salary descending
+                              select employee.Salary).Skip(1).First();
+
+
+
+            
+                Console.WriteLine(empquery56);
+
+
+
+
+
+
 
         }
     }
